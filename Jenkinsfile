@@ -44,5 +44,19 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to EC2') {
+			steps {
+				sshagent(['ec2-ssh-key']) {
+					sh """
+					ssh -o StrictHostKeyChecking=no ubuntu@43.204.22.237 '
+                    docker pull dhanushgubba/api-gateway:latest &&
+                    docker stop api-gateway || true &&
+                    docker rm api-gateway || true &&
+                    docker run -d -p 8087:8087 --name api-gateway dhanushgubba/api-gateway:latest
+                	'
+           		 	"""
+        		}
+    		}
+		}
     }
 }
