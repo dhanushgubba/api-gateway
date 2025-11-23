@@ -48,7 +48,7 @@ pipeline {
 			steps {
 				sshagent(['ec2-ssh-key']) {
 					sh """
-					ssh -o StrictHostKeyChecking=no ubuntu@13.235.16.65 '
+					ssh -o StrictHostKeyChecking=no ubuntu@3.108.194.180 '
                     docker pull dhanushgubba/api-gateway:latest &&
                     docker stop api-gateway || true &&
                     docker rm api-gateway || true &&
